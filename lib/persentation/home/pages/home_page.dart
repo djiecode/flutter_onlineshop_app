@@ -1,8 +1,8 @@
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/best_seller_product/best_seller_product_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/special_offer_product/special_offer_product_bloc.dart';
-
 import 'package:go_router/go_router.dart';
 
 import '../../../core/assets/assets.gen.dart';
@@ -17,7 +17,6 @@ import '../widgets/banner_slider.dart';
 import '../widgets/organism/menu_categories.dart';
 import '../widgets/organism/product_list.dart';
 import '../widgets/title_content.dart';
-import 'package:badges/badges.dart' as badges;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

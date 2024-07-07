@@ -19,7 +19,9 @@ import 'package:flutter_onlineshop_app/persentation/home/bloc/special_offer_prod
 import 'package:flutter_onlineshop_app/persentation/orders/bloc/cost/cost_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/orders/bloc/history_order/history_order_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/orders/bloc/order/order_bloc.dart';
+import 'package:flutter_onlineshop_app/persentation/orders/bloc/order_detail/order_detail_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/orders/bloc/status_order/status_order_bloc.dart';
+import 'package:flutter_onlineshop_app/persentation/orders/bloc/tracking/tracking_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'core/constants/colors.dart';
@@ -83,9 +85,9 @@ class MyApp extends StatelessWidget {
             create: (context) => SubdistrictBloc(RajaongkirRemoteDatasource())),
         BlocProvider(
             create: (context) => CostBloc(RajaongkirRemoteDatasource())),
-        // BlocProvider(
-        //   create: (context) => TrackingBloc(RajaongkirRemoteDatasource()),
-        // ),
+        BlocProvider(
+          create: (context) => TrackingBloc(RajaongkirRemoteDatasource()),
+        ),
         BlocProvider(
           create: (context) => OrderBloc(OrderRemoteDatasource()),
         ),
@@ -95,9 +97,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => HistoryOrderBloc(OrderRemoteDatasource()),
         ),
-        // BlocProvider(
-        //   create: (context) => OrderDetailBloc(OrderRemoteDatasource()),
-        // ),
+        BlocProvider(
+          create: (context) => OrderDetailBloc(OrderRemoteDatasource()),
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

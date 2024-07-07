@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/tracking_response_model.dart';
+import 'package:intl/intl.dart';
 
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
 import '../models/track_record_model.dart';
 
 class TrackignVertical extends StatelessWidget {
-  final List<TrackRecordModel> trackRecords;
+  final List<Manifest> trackRecords;
   const TrackignVertical({super.key, required this.trackRecords});
 
   @override
   Widget build(BuildContext context) {
-    final sortedTrackRecords = trackRecords.toList()
-      ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
+    // final sortedTrackRecords = trackRecords.toList()
+    //   ..sort((a, b) => b.updatedAt.compareTo(a.updatedAt));
 
     return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: sortedTrackRecords.length,
+      itemCount: trackRecords.length,
       itemBuilder: (BuildContext context, int index) => TrackingItem(
-        trackRecord: sortedTrackRecords[index],
+        trackRecord: trackRecords[index],
         isCurrent: index == 0,
         isLast: index == trackRecords.length - 1,
       ),
@@ -27,7 +29,7 @@ class TrackignVertical extends StatelessWidget {
 }
 
 class TrackingItem extends StatelessWidget {
-  final TrackRecordModel trackRecord;
+  final Manifest trackRecord;
   final bool isCurrent;
   final bool isLast;
 
@@ -49,14 +51,14 @@ class TrackingItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                trackRecord.formattedDateShort,
+                DateFormat('yyyy-MM-dd').format(trackRecord.manifestDate!),
                 textAlign: TextAlign.right,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
               ),
               Text(
-                trackRecord.formattedTime,
+                trackRecord.manifestTime.toString(),
                 style: const TextStyle(
                   color: AppColors.grey,
                 ),
@@ -87,10 +89,10 @@ class TrackingItem extends StatelessWidget {
         Flexible(
           child: RichText(
             text: TextSpan(
-              text: '[${trackRecord.status.value}] ',
+              text: '[${trackRecord.manifestCode}] ',
               children: [
                 TextSpan(
-                  text: trackRecord.title,
+                  text: trackRecord.manifestDescription,
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
                   ),

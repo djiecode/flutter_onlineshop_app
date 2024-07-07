@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_onlineshop_app/core/constants/variables.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/order_detail_response_model.dart';
 
 import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
-import '../../home/models/product_model.dart';
+
 
 class ProductTile extends StatelessWidget {
-  final ProductModel data;
+  final OrderItem data;
   const ProductTile({super.key, required this.data});
 
   @override
@@ -18,20 +20,20 @@ class ProductTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            child: Image.asset(
-              data.images.first,
-              width: 68.0,
-              height: 68.0,
-            ),
-          ),
-          const SpaceWidth(14.0),
+          // ClipRRect(
+          //   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          //   child: Image.network(
+          //     '${Variables.baseUrlImage}${data.product!.image!}',
+          //     width: 68.0,
+          //     height: 68.0,
+          //   ),
+          // ),
+          // const SpaceWidth(14.0),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                data.name,
+                data.product!.name!,
                 style: const TextStyle(
                   fontSize: 16,
                 ),
@@ -40,7 +42,7 @@ class ProductTile extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    data.priceFormat,
+                    '${data.product!.price?.currencyFormatRp} x ${data.quantity} = ${(data.product!.price! * data.quantity!).currencyFormatRp}',
                     style: const TextStyle(
                       color: AppColors.primary,
                       fontSize: 16,

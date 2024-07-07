@@ -126,14 +126,18 @@ class AppRouter {
                           GoRoute(
                             name: RouteConstants.trackingOrder,
                             path: RouteConstants.trackingOrderPath,
-                            builder: (context, state) =>
-                                const TrackingOrderPage(),
+                            builder: (context, state) {
+                              final args = state.extra as int;
+                              return TrackingOrderPage(orderId: args);
+                            },
                             routes: [
                               GoRoute(
                                 name: RouteConstants.shippingDetail,
                                 path: RouteConstants.shippingDetailPath,
-                                builder: (context, state) =>
-                                    const ShippingDetailPage(),
+                                builder: (context, state) {
+                                  final args = state.extra as String;
+                                  return ShippingDetailPage(resi: args);
+                                },
                               ),
                             ],
                           ),
