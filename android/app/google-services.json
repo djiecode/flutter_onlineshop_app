@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "787551146506",
+    "project_id": "bestnetapp-844ca",
+    "storage_bucket": "bestnetapp-844ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787551146506:android:50462151cd03c0fdd205f3",
+        "android_client_info": {
+          "package_name": "com.example.flutter_onlineshop_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwwOpcTlPsoBTfqIgXzW3Yn1m3bxjHDoY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
