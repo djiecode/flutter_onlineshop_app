@@ -1,9 +1,14 @@
 // import 'package:fic12_flutter_starter/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/product_response_model.dart';
+
+import 'package:flutter_onlineshop_app/persentation/home/models/product_model.dart';
 import 'package:flutter_onlineshop_app/persentation/home/pages/dashboard_page.dart';
+import 'package:flutter_onlineshop_app/persentation/home/widgets/product_detail.dart';
 import 'package:flutter_onlineshop_app/persentation/intro/splash_page.dart';
 import 'package:flutter_onlineshop_app/persentation/orders/pages/history_order_page.dart';
 import 'package:flutter_onlineshop_app/persentation/orders/pages/order_detail_page.dart';
+
 import 'package:flutter_onlineshop_app/persentation/orders/pages/payment_detail_page.dart';
 
 import 'package:flutter_onlineshop_app/persentation/orders/pages/payment_waiting_page.dart';
@@ -78,6 +83,14 @@ class AppRouter {
             );
           },
           routes: [
+            GoRoute(
+              name: RouteConstants.ProductDetailsPage,
+              path: RouteConstants.productDetailPath,
+              builder: (context, state) {
+                final args = state.extra as Product;
+                return ProductDetailsPage(data: args);
+              },
+            ),
             GoRoute(
               name: RouteConstants.orderList,
               path: RouteConstants.orderListPath,

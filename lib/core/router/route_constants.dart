@@ -22,7 +22,7 @@ class RouteConstants {
   static const String rootPath = '/:root_tab';
 
   /// route for page [ProductDetailPage]
-  static const String productDetail = 'product_detail';
+  static const String ProductDetailsPage = 'product_detail';
   static const String productDetailPath = 'product_detail';
 
   /// route for page [CartPage]

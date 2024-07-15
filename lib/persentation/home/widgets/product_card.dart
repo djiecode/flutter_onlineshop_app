@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_onlineshop_app/persentation/home/widgets/product_detail.dart';
+
 import 'package:go_router/go_router.dart';
 
 import '../../../core/components/spaces.dart';
@@ -18,7 +20,7 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.goNamed(
-          RouteConstants.productDetail,
+          RouteConstants.ProductDetailsPage,
           pathParameters: PathParameters().toMap(),
           extra: data,
         );
@@ -43,6 +45,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
+                  
                   child: Image.network(
                     data.image!.contains('http')
                         ? data.image!

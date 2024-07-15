@@ -22,7 +22,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   void initState() {
     context.read<CostBloc>().add(CostEvent.getCost(
           origin: '5779',
-          destination: '2103',
+          destination: '538',
           weight: 1000,
           courier: 'jne',
         ));

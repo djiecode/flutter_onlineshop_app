@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/product_response_model.dart';
 import 'package:flutter_onlineshop_app/persentation/account/pages/account_page.dart';
+import 'package:flutter_onlineshop_app/persentation/home/pages/all_product.dart';
 import 'package:flutter_onlineshop_app/persentation/home/pages/home_page.dart';
 import 'package:flutter_onlineshop_app/persentation/home/pages/logout_page.dart';
 
@@ -31,9 +33,11 @@ class _DashboardPageState extends State<DashboardPage> {
     // const Center(
     //   child: Text('This Page 2'),
     // ),
-    const Center(
-      child: Text('This Page 3'),
-    ),
+    // const Center(
+    //   child: Text('This Page 3'),
+    // ),
+      
+    const AllProduct(),
     const AccountPage(),
   ];
 

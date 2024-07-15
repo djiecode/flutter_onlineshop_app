@@ -18,33 +18,53 @@ class _MenuCategoriesState extends State<MenuCategories> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CategoryBloc, CategoryState>(
-      builder: (context, state) {
-        return state.maybeWhen(
-          loaded: (categories) => Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ...categories.map(
-                (category) => Flexible(
+
+
+@override
+Widget build(BuildContext context) {
+  return BlocBuilder<CategoryBloc, CategoryState>(
+    builder: (context, state) {
+      
+      return state.maybeWhen(
+        loaded: (categories) {
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: categories.map((category) {
+                return SizedBox(
+                  width: 85,
+                  // height: 60,
                   child: CategoryButton(
                     imagePath: category.image!,
                     label: category.name!,
                     onPressed: () {},
+                    data: category,
                   ),
-                ),
-              ),
-            ],
-          ),
-          orElse: () => const SizedBox.shrink(),
-          loading: () => const Center(
+                );
+              }).toList(),
+            ),
+          );
+        },
+        orElse: () {
+          return const SizedBox.shrink();
+        },
+        loading: () {
+          return const Center(
             child: CircularProgressIndicator(),
-          ),
-          error: (message) => Center(
+          );
+        },
+        error: (message) {
+          return Center(
             child: Text(message),
-          ),
-        );
+          );
+        },
+      );
+    },
+  );
+}
+}
+
         //   return Row(
         //   children: [
         //     Flexible(
@@ -77,7 +97,3 @@ class _MenuCategoriesState extends State<MenuCategories> {
         //     ),
         //   ],
         // );
-      },
-    );
-  }
-}
