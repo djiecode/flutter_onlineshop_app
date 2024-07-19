@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_onlineshop_app/persentation/home/pages/category_products_page.dart';
 
 import '../../bloc/category/category_bloc.dart';
 import '../category_button.dart';
@@ -38,7 +39,16 @@ Widget build(BuildContext context) {
                   child: CategoryButton(
                     imagePath: category.image!,
                     label: category.name!,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                      MaterialPageRoute(
+                        builder: (context){
+                          return CategoryProductsPage(id: category.id!, label: category.name!);
+                        },
+
+                      ),
+                      );
+                    },
                     data: category,
                   ),
                 );

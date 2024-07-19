@@ -20,7 +20,7 @@ class OrderDetailPage extends StatefulWidget {
 class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   void initState() {
-    context.read<CostBloc>().add(CostEvent.getCost(
+    context.read<CostBloc>().add(const CostEvent.getCost(
           origin: '5779',
           destination: '538',
           weight: 1000,

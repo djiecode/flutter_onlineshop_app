@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_onlineshop_app/core/constants/Variables.dart';
 // import 'package:flutter_onlineshop_app/core/constants/variables.dart';
@@ -29,6 +31,20 @@ class ProductRemoteDatasource {
       return const Left('Internal Server Error');
     }
   }
+// get product by category
+  // Future<Either<String, ProductResponseModel>> getProductsLaptop(
+  //     int categoryId) async {
+  //   final response = await http.get(
+  //       Uri.parse('${Variables.baseUrl}/api/products?category_id=$categoryId'));
+
+  //   if (response.statusCode == 200) {
+  //     return Right(ProductResponseModel.fromJson(response.body));
+  //   } else {
+  //     return const Left('Internal Server Error');
+  //   }
+  // }
+
+
 
 // get product by category
   Future<Either<String, ProductResponseModel>> getSpecialOfferProduct(

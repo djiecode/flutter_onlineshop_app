@@ -11,8 +11,6 @@ import '../../../core/components/spaces.dart';
 import '../../../core/router/app_router.dart';
 import '../bloc/all_product/all_product_bloc.dart';
 import '../bloc/checkout/checkout_bloc.dart';
-import '../models/product_model.dart';
-import '../models/store_model.dart';
 import '../widgets/banner_slider.dart';
 import '../widgets/organism/menu_categories.dart';
 import '../widgets/organism/product_list.dart';

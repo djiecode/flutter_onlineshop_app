@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/cost_response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:flutter_onlineshop_app/data/datasources/product_remote_datasource.dart';
@@ -22,5 +23,13 @@ class AllProductBloc extends Bloc<AllProductEvent, AllProductState> {
         (r) => emit(AllProductState.loaded(r.data!.data!)),
       );
     });
+    // on<_GetByCategory>((event, emit) async {
+    //   emit(const _Loading());
+    //   final response = await _productRemoteDatasource.getProductByCategory(event.categoryId);
+    //   response.fold(
+    //     (l) => emit(const AllProductState.error('Internal Server Error')),
+    //     (r) => emit(AllProductState.loaded(r.data!.data!)),
+    //   );
+    // });
   }
 }

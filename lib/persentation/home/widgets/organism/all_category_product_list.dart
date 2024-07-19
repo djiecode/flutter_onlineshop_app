@@ -4,12 +4,12 @@ import 'package:flutter_onlineshop_app/data/models/responses/product_response_mo
 import '../../../../core/components/spaces.dart';
 import '../product_card.dart';
 
-class AllProductList extends StatelessWidget {
+class AllCategoryProductList extends StatelessWidget {
   // final String title;
   // final VoidCallback onSeeAllTap;
   final List<Product> items;
 
-  const AllProductList({
+  const AllCategoryProductList({
     super.key,
     // required this.title,
     // required this.onSeeAllTap,

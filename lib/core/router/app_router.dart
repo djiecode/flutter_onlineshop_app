@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onlineshop_app/data/models/responses/product_response_model.dart';
 
-import 'package:flutter_onlineshop_app/persentation/home/models/product_model.dart';
 import 'package:flutter_onlineshop_app/persentation/home/pages/dashboard_page.dart';
 import 'package:flutter_onlineshop_app/persentation/home/widgets/product_detail.dart';
 import 'package:flutter_onlineshop_app/persentation/intro/splash_page.dart';

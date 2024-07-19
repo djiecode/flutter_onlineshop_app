@@ -7,7 +7,7 @@ class PathParameters {
     this.rootTab = RootTab.home,
   });
 
-  Map<String, String> toMap() {
+  Map<String, String> toMap({required,  }) {
     return {
       'root_tab': rootTab.value,
     };

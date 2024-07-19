@@ -59,7 +59,7 @@ class RajaongkirRemoteDatasource {
       return left('Error');
     }
   }
-
+//cost
   Future<Either<String, CostResponseModel>> getCost(
       String origin, String destination, String courier) async {
     final url = Uri.parse('https://pro.rajaongkir.com/api/cost');
