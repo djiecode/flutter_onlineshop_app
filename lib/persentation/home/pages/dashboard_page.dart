@@ -57,7 +57,7 @@ class _DashboardPageState extends State<DashboardPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        selectedItemColor: AppColors.primary,
+        selectedItemColor: const Color.fromRGBO(37, 150, 190, 1),
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(

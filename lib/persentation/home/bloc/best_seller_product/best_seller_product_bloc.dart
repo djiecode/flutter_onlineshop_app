@@ -18,7 +18,7 @@ class BestSellerProductBloc
     on<_GetBestSellerProducts>((event, emit) async {
       emit(const BestSellerProductState.loading());
       final response = await _productRemoteDatasource
-          .getProductByCategory(6); //get product by category9
+          .getProductByCategory(13); //get product by category9
       response.fold(
         (l) =>
             emit(const BestSellerProductState.error('Internal Server Error')),

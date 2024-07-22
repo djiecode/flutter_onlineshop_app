@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_onlineshop_app/data/models/responses/cost_response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:flutter_onlineshop_app/data/datasources/product_remote_datasource.dart';

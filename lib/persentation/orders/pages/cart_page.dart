@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,7 @@ import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../widgets/cart_tile.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({super.key});
+  const CartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,17 +62,6 @@ class CartPage extends StatelessWidget {
             },
           ),
           const SizedBox(width: 16.0),
-          // IconButton(
-          //   onPressed: () {
-          //     context.goNamed(
-          //       RouteConstants.cart,
-          //       pathParameters: PathParameters(
-          //         rootTab: RootTab.order,
-          //       ).toMap(),
-          //     );
-          //   },
-          //   icon: Assets.icons.cart.svg(height: 24.0),
-          // ),
         ],
       ),
       body: ListView(
@@ -94,98 +85,85 @@ class CartPage extends StatelessWidget {
                 },
               );
             },
-
-            //   return ListView.separated(
-            //     shrinkWrap: true,
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     itemCount: carts.length,
-            //     itemBuilder: (context, index) => CartTile(
-            //       data: CartModel(
-            //         product: carts[index],
-            //         quantity: 1,
-            //       ),
-            //     ),
-            //     separatorBuilder: (context, index) => const SpaceHeight(16.0),
-            //   );
-            // },
           ),
           const SpaceHeight(50.0),
-          Row(
-            children: [
-              const Text(
-                'Total',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const Spacer(),
-              BlocBuilder<CheckoutBloc, CheckoutState>(
-                builder: (context, state) {
-                  final total = state.maybeWhen(
-                    orElse: () => 0,
-                    loaded: (checkout, _, __, ___, ____, _____) {
-                      return checkout.fold<int>(
-                        0,
-                        (previousValue, element) =>
-                            previousValue +
-                            (element.product.price! * element.quantity),
-                      );
-                    },
-                  );
-                  return Text(
-                    total.currencyFormatRp,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-          const SpaceHeight(40.0),
           BlocBuilder<CheckoutBloc, CheckoutState>(
             builder: (context, state) {
-              final totalQty = state.maybeWhen(
+              final total = state.maybeWhen(
                 orElse: () => 0,
                 loaded: (checkout, _, __, ___, ____, _____) {
                   return checkout.fold<int>(
                     0,
                     (previousValue, element) =>
-                        previousValue + element.quantity,
+                        previousValue +
+                        (element.product.price! * element.quantity),
                   );
                 },
               );
-              return Button.filled(
-                onPressed: () async {
-                  final isAuth = await AuthLocalDatasource().isAuth();
-                  if (!isAuth) {
-                    context.pushNamed(
-                      RouteConstants.login,
-                    );
-                  } else {
-                    context.pushNamed(
-                      RouteConstants.address,
-                      pathParameters: PathParameters(
-                        rootTab: RootTab.order,
-                      ).toMap(),
-                    );
-                  }
-                },
-                label: 'Checkout ($totalQty)',
-              );
-              // return Button.filled(
-              //   onPressed: () {
-              //     context.goNamed(
-              //       RouteConstants.address,
-              //       pathParameters: PathParameters(
-              //         rootTab: RootTab.order,
-              //       ).toMap(),
-              //     );
-              //   },
-              //   label: 'Checkout (10)',
-              // );
+              if (total > 0) {
+                return Column(
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          'Total',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          total.currencyFormatRp,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SpaceHeight(40.0),
+                    BlocBuilder<CheckoutBloc, CheckoutState>(
+                      builder: (context, state) {
+                        final totalQty = state.maybeWhen(
+                          orElse: () => 0,
+                          loaded: (checkout, _, __, ___, ____, _____) {
+                            return checkout.fold<int>(
+                              0,
+                              (previousValue, element) =>
+                                  previousValue + element.quantity,
+                            );
+                          },
+                        );
+                        if (totalQty > 0) {
+                          return Button.filled(
+                            onPressed: () async {
+                              final isAuth = await AuthLocalDatasource().isAuth();
+                              if (!isAuth) {
+                                context.pushNamed(
+                                  RouteConstants.login,
+                                );
+                              } else {
+                                context.pushNamed(
+                                  RouteConstants.address,
+                                  pathParameters: PathParameters(
+                                    rootTab: RootTab.order,
+                                  ).toMap(),
+                                );
+                              }
+                            },
+                            label: 'Checkout ($totalQty)',
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
+                  ],
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
             },
           ),
         ],

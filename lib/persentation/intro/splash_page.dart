@@ -21,11 +21,14 @@ class _SplashPageState extends State<SplashPage> {
       ),
     );
 
-    return const Scaffold(
-      bottomNavigationBar: Padding(
+    return  Scaffold(
+      body: Center(
+        child: Image.asset('assets/images/logo.png'),
+      ),
+      bottomNavigationBar: const Padding(
         padding: EdgeInsets.all(30.0),
         child: Text(
-          'Code with Bahri',
+          'Bestnet Computer Store',
           style: TextStyle(
             color: AppColors.grey,
             fontWeight: FontWeight.w600,

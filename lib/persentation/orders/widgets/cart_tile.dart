@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/models/product_quantity.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-
 import '../../../core/components/spaces.dart';
 import '../../../core/constants/variables.dart';
 import '../../../core/core.dart';
@@ -11,7 +10,7 @@ import '../../home/bloc/checkout/checkout_bloc.dart';
 
 class CartTile extends StatelessWidget {
   final ProductQuantity data;
-  const CartTile({super.key, required this.data});
+  const CartTile({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,12 @@ class CartTile extends StatelessWidget {
           motion: const StretchMotion(),
           children: [
             SlidableAction(
-              onPressed: (context) {},
+              onPressed: (context) {
+                // Call a method to remove the item from the cart
+                context
+                    .read<CheckoutBloc>()
+                    .add(CheckoutEvent.removeItem(data.product));
+              },
               backgroundColor: AppColors.primary.withOpacity(0.44),
               foregroundColor: AppColors.red,
               icon: Icons.delete_outlined,
@@ -46,13 +50,13 @@ class CartTile extends StatelessWidget {
                   ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                     child: Image.network(
-                    data.product.image!.contains('http')
-                        ? data.product.image!
-                        : '${Variables.baseUrlImage}${data.product.image}',
-                    width: 70.0,
-                    height: 70.0,
-                    fit: BoxFit.cover,
-                  ),
+                      data.product.image!.contains('http')
+                          ? data.product.image!
+                          : '${Variables.baseUrlImage}${data.product.image}',
+                      width: 70.0,
+                      height: 70.0,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   const SpaceWidth(14.0),
                   Column(
@@ -81,55 +85,57 @@ class CartTile extends StatelessWidget {
                   ),
                 ],
               ),
-           Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ClipRRect(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(5.0)),
-                      child: InkWell(
-                        onTap: () {
-                            context.read<CheckoutBloc>().add(CheckoutEvent.removeItem(data.product));
-                          },
-                        child: const ColoredBox(
-                          color: AppColors.primary,
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.remove,
-                              color: AppColors.white,
-                            ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    child: InkWell(
+                      onTap: () {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(CheckoutEvent.removeItem(data.product));
+                      },
+                      child: const ColoredBox(
+                        color: AppColors.primary,
+                        child: Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Icon(
+                            Icons.remove,
+                            color: AppColors.white,
                           ),
                         ),
                       ),
                     ),
-                    const SpaceWidth(4.0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('${data.quantity}'),
-                    ),
-                    const SpaceWidth(4.0),
-                    ClipRRect(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(5.0)),
-                      child: InkWell(
-                        onTap: () {
-                          context.read<CheckoutBloc>().add(CheckoutEvent.addItem(data.product));
-                        },
-                        child: const ColoredBox(
-                          color: AppColors.primary,
-                          child: Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: Icon(
-                              Icons.add,
-                              color: AppColors.white,
-                            ),
+                  ),
+                  const SpaceWidth(4.0),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('${data.quantity}'),
+                  ),
+                  const SpaceWidth(4.0),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                    child: InkWell(
+                      onTap: () {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(CheckoutEvent.addItem(data.product));
+                      },
+                      child: const ColoredBox(
+                        color: AppColors.primary,
+                        child: Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Icon(
+                            Icons.add,
+                            color: AppColors.white,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

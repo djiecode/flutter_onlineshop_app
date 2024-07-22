@@ -193,6 +193,20 @@ class Product {
       createdAt.hashCode ^
       updatedAt.hashCode;
   }
+
+  //   double? getPriceAsDouble() {
+  //   if (price!= null) {
+  //     // Extract the numerical value from the price string
+  //     RegExp regExp = RegExp(r'\d+(\.\d+)?');
+  //     RegExpMatch? match = regExp.firstMatch(price!.toString());
+  //     if (match != null) {
+  //       String numericValue = match.group(0)!;
+
+  //       return (double.tryParse(numericValue) ?? 0); // 1 rs to IDR
+  //     }
+  //   }
+  //   return null;
+  // }
 }
 
 class Link {

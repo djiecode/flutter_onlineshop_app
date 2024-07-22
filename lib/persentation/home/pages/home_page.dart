@@ -28,11 +28,11 @@ class _HomePageState extends State<HomePage> {
 
   final List<String> banners1 = [
     Assets.images.banner1.path,
-    Assets.images.banner1.path,
+    Assets.images.banner2.path,
   ];
   final List<String> banners2 = [
     Assets.images.banner2.path,
-    Assets.images.banner2.path,
+    Assets.images.banner1.path,
     Assets.images.banner2.path,
   ];
 
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                   return ProductList(
                       title: 'Featured Product',
                       onSeeAllTap: () {},
-                      items: products.length > 6 //get 2 items only
+                      items: products.length > 20 //get 2 items only
                           ? products.sublist(0, 2)
                           : products);
                 },
@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                   return ProductList(
                       title: 'Best Seller',
                       onSeeAllTap: () {},
-                      items: products.length > 2 //get 2 items only
+                      items: products.length > 4 //get 2 items only
                           ? products.sublist(0, 2)
                           : products);
                 },
@@ -178,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                   return ProductList(
                       title: 'Special Offer',
                       onSeeAllTap: () {},
-                      items: products.length > 2 //get 2 items only
+                      items: products.length > 12 //get 2 items only
                           ? products.sublist(0, 2)
                           : products);
                 },
