@@ -10,7 +10,10 @@ import '../../home/bloc/checkout/checkout_bloc.dart';
 
 class CartTile extends StatelessWidget {
   final ProductQuantity data;
-  const CartTile({Key? key, required this.data}) : super(key: key);
+  final bool isEditable;
+  final bool isSearchCard;
+  const CartTile({Key? key, required this.data, this.isEditable = true,
+      this.isSearchCard = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -59,29 +62,31 @@ class CartTile extends StatelessWidget {
                     ),
                   ),
                   const SpaceWidth(14.0),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        data.product.name!,
-                        style: const TextStyle(
-                          fontSize: 16,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            data.product.price!.currencyFormatRp,
-                            style: const TextStyle(
-                              color: AppColors.primary,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data.product.name!,
+                          style: const TextStyle(
+                            fontSize: 16,
                           ),
-                        ],
-                      ),
-                    ],
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              data.product.price!.currencyFormatRp,
+                              style: const TextStyle(
+                                color: AppColors.primary,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

@@ -107,13 +107,18 @@ class _HomePageState extends State<HomePage> {
           SearchInput(
             controller: searchController,
             onTap: () {
-              context.pushReplacementNamed(
-                RouteConstants.root,
-                pathParameters: PathParameters(
-                  rootTab: RootTab.explore,
-                ).toMap(),
-              );
-            },
+                context.goNamed(
+                  RouteConstants.searchProduct,
+                  pathParameters: PathParameters().toMap(),
+                  // extra: selectedCateogry,
+                );
+                // context.pushReplacementNamed(
+                //   RouteConstants.root,
+                //   pathParameters: PathParameters(
+                //     rootTab: RootTab.explore,
+                //   ).toMap(),
+                // );
+              },
           ),
           const SpaceHeight(16.0),
           BannerSlider(items: banners1),

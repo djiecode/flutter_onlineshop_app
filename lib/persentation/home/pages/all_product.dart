@@ -2,6 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_onlineshop_app/core/assets/assets.gen.dart';
+import 'package:flutter_onlineshop_app/core/components/search_input.dart';
 import 'package:flutter_onlineshop_app/core/router/app_router.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/all_product/all_product_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/checkout/checkout_bloc.dart';
@@ -12,8 +13,10 @@ class AllProduct extends StatelessWidget {
   // final List<Product> items;
   const AllProduct({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
+  late TextEditingController searchController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Product'),
@@ -63,30 +66,31 @@ class AllProduct extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
-        BlocBuilder<AllProductBloc, AllProductState>(
-          builder: (context, state) {
-            return state.maybeWhen(
-              loaded: (products) {
-                return AllProductList(
-                    // title: 'All Product',
-                    // onSeeAllTap: () {},
-                    items: products.length>20
-                        ? products.sublist(0, 2)
-                        : products);
-              },
-              orElse: () => const Center(child:Text('ss')),
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              error: (message) => const Center(
-                child: Text('no data'),
-              ),
-            );
-          },
-        ),
+          SearchInput(controller: searchController),
+          const SizedBox(height: 16.0),
+          BlocBuilder<AllProductBloc, AllProductState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                loaded: (products) {
+                  return AllProductList(
+                      // title: 'All Product',
+                      // onSeeAllTap: () {},
+                      items: products.length > 20
+                          ? products.sublist(0, 2)
+                          : products);
+                },
+                orElse: () => const Center(child: Text('ss')),
+                loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                error: (message) => const Center(
+                  child: Text('no data'),
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
   }
 }
-

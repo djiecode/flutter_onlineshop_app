@@ -65,6 +65,14 @@ class RouteConstants {
   static const String orderList = 'order_list';
   static const String orderListPath = 'order_list';
 
+  /// route for page [SearchProductPage]
+  static const String searchProductPage = 'search';
+  static const String searchProductPagePath = '/search';
+
+  /// route for page [SearchProductPage]
+  static const String searchProduct = 'search_product';
+  static const String searchProductPath = 'search_product';
+}
   //   /// route for page [PaymentDetailPage]
   // static const String paymentDetail = 'payment_detail';
   // static const String paymentDetailPath = 'payment_detail';
@@ -85,4 +93,4 @@ class RouteConstants {
   // static const String orderList = 'order_list';
   // static const String orderListPath = 'order_list';
 
-}
+

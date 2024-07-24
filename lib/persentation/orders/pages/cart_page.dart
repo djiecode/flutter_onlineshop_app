@@ -86,7 +86,7 @@ class CartPage extends StatelessWidget {
               );
             },
           ),
-          const SpaceHeight(50.0),
+          const SpaceHeight(20.0),
           BlocBuilder<CheckoutBloc, CheckoutState>(
             builder: (context, state) {
               final total = state.maybeWhen(
@@ -122,7 +122,7 @@ class CartPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SpaceHeight(40.0),
+                    const SpaceHeight(20.0),
                     BlocBuilder<CheckoutBloc, CheckoutState>(
                       builder: (context, state) {
                         final totalQty = state.maybeWhen(

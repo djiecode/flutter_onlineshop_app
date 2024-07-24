@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_onlineshop_app/persentation/account/pages/account_page.dart';
 import 'package:flutter_onlineshop_app/persentation/home/pages/all_product.dart';
 import 'package:flutter_onlineshop_app/persentation/home/pages/home_page.dart';
+import 'package:flutter_onlineshop_app/persentation/home/pages/search_page.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/constants/colors.dart';
@@ -35,7 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
     //   child: Text('This Page 3'),
     // ),
       
-    const AllProduct(),
+    const SearchPage(),
     const AccountPage(),
   ];
 

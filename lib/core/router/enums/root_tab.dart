@@ -2,8 +2,8 @@ part of '../app_router.dart';
 
 enum RootTab {
   home('0'),
-  explore('1'),
-  order('2'),
+  explore('2'),
+  order('1'),
   account('3');
 
   final String value;
