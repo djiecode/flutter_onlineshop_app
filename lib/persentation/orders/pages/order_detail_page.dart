@@ -17,14 +17,21 @@ class OrderDetailPage extends StatefulWidget {
   State<OrderDetailPage> createState() => _OrderDetailPageState();
 }
 
+// class OrderDetailPage extends StatefulWidget {
+//   const OrderDetailPage({super.key});
+
+//   @override
+//   State<OrderDetailPage> createState() => _OrderDetailPageState();
+// }
+
 class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   void initState() {
     context.read<CostBloc>().add(const CostEvent.getCost(
           origin: '5779',
-          destination: '538',
+          destination: '2103',
           weight: 1000,
-          courier: 'jne',
+          courier: 'sicepat',
         ));
     super.initState();
   }

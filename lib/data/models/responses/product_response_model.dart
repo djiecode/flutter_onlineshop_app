@@ -107,6 +107,7 @@ class Data {
 class Product {
   final int? id;
   final int? categoryId;
+  final int? featureId;
   final String? name;
   final String? description;
   final String? image;
@@ -119,6 +120,7 @@ class Product {
   Product({
     this.id,
     this.categoryId,
+    this.featureId,
     this.name,
     this.description,
     this.image,
@@ -136,6 +138,7 @@ class Product {
   factory Product.fromMap(Map<String, dynamic> json) => Product(
         id: json["id"],
         categoryId: json["category_id"],
+        featureId: json["category_id"],
         name: json["name"],
         description: json["description"],
         image: json["image"],
@@ -153,6 +156,7 @@ class Product {
   Map<String, dynamic> toMap() => {
         "id": id,
         "category_id": categoryId,
+        "feature_id": featureId,
         "name": name,
         "description": description,
         "image": image,
@@ -170,6 +174,7 @@ class Product {
     return 
       other.id == id &&
       other.categoryId == categoryId &&
+      other.featureId == featureId &&
       other.name == name &&
       other.description == description &&
       other.image == image &&
@@ -184,6 +189,7 @@ class Product {
   int get hashCode {
     return id.hashCode ^
       categoryId.hashCode ^
+      featureId.hashCode ^
       name.hashCode ^
       description.hashCode ^
       image.hashCode ^

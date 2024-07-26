@@ -18,7 +18,7 @@ class SpecialOfferProductBloc
     on<SpecialOfferProductEvent>((event, emit) async {
       emit(const SpecialOfferProductState.loading());
       final response = await _productRemoteDatasource
-          .getProductByCategory(12);  //;get product by category10
+          .getFeature(12);  //;get product by category10
       response.fold(
         (l) =>
             emit(const SpecialOfferProductState.error('Internal Server Error')),

@@ -19,9 +19,7 @@ class ProductRemoteDatasource {
     }
   }
 
-  
-
-// get product by category
+// get all product by categoryId
   Future<Either<String, ProductResponseModel>> getProductByCategory(
       int categoryId) async {
     final response = await http.get(
@@ -46,11 +44,10 @@ class ProductRemoteDatasource {
   //   }
   // }
 
-// get product by category
-  Future<Either<String, ProductResponseModel>> getSpecialOfferProduct(
-      int categoryId) async {
+// get product by Feature
+  Future<Either<String, ProductResponseModel>> getFeature(int featureId) async {
     final response = await http.get(
-        Uri.parse('${Variables.baseUrl}/api/products?category_id=$categoryId'));
+        Uri.parse('${Variables.baseUrl}/api/feature?feature_id=$featureId'));
 
     if (response.statusCode == 200) {
       return Right(ProductResponseModel.fromJson(response.body));
@@ -59,7 +56,7 @@ class ProductRemoteDatasource {
     }
   }
 
-    Future<Either<String, ProductResponseModel>> getProducts(
+  Future<Either<String, ProductResponseModel>> getProducts(
       {String? category, String? search}) async {
     final uri = Uri.parse('${Variables.baseUrl}/api/products');
     final response = await http
@@ -79,4 +76,3 @@ class ProductRemoteDatasource {
     }
   }
 }
-
