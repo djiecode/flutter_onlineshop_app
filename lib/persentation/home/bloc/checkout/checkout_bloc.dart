@@ -75,6 +75,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
       }
     });
 
+
     on<_AddAddressId>((event, emit) {
       final currentState = state as _Loaded;
       emit(_Loaded(
@@ -108,6 +109,20 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
           currentState.paymentMethod));
     });
 
+// remove order on cart tile
+    on<_RemoveOrder>((event, emit) {
+      final currentState = state as _Loaded;
+      final newItems = currentState.products
+          .where((element) => element.product.id != event.product.id)
+          .toList();
+      emit(_Loaded(
+          newItems,
+          currentState.addressId,
+          currentState.paymentMethod,
+          currentState.shippingService,
+          currentState.shippingCost,
+          currentState.paymentMethod));
+    });
     //on started
     on<_Started>((event, emit) {
       emit(const _Loaded([], 0, '', '', 0, ''));
