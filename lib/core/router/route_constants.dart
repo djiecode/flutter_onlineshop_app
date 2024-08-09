@@ -72,6 +72,9 @@ class RouteConstants {
   /// route for page [SearchProductPage]
   static const String searchProduct = 'search_product';
   static const String searchProductPath = 'search_product';
+
+  static const String profilePage = 'profile_page';
+  static const String profilePagePath = 'profile_page';
 }
   //   /// route for page [PaymentDetailPage]
   // static const String paymentDetail = 'payment_detail';

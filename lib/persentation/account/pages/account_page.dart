@@ -26,7 +26,14 @@ class AccountPage extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            onTap: () {},
+              onTap: () {
+              context.pushNamed(
+                RouteConstants.profilePage,
+                pathParameters: PathParameters(
+                  rootTab: RootTab.account,
+                ).toMap(),
+              );
+            },
           ),
           ListTile(
             leading: Assets.icons.bag.svg(),

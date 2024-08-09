@@ -107,18 +107,18 @@ class _HomePageState extends State<HomePage> {
           SearchInput(
             controller: searchController,
             onTap: () {
-                context.goNamed(
-                  RouteConstants.searchProduct,
-                  pathParameters: PathParameters().toMap(),
-                  // extra: selectedCateogry,
-                );
-                // context.pushReplacementNamed(
-                //   RouteConstants.root,
-                //   pathParameters: PathParameters(
-                //     rootTab: RootTab.explore,
-                //   ).toMap(),
-                // );
-              },
+              context.goNamed(
+                RouteConstants.searchProduct,
+                pathParameters: PathParameters().toMap(),
+                // extra: selectedCateogry,
+              );
+              // context.pushReplacementNamed(
+              //   RouteConstants.root,
+              //   pathParameters: PathParameters(
+              //     rootTab: RootTab.explore,
+              //   ).toMap(),
+              // );
+            },
           ),
           const SpaceHeight(16.0),
           BannerSlider(items: banners1),
@@ -157,13 +157,13 @@ class _HomePageState extends State<HomePage> {
           BlocBuilder<BestSellerProductBloc, BestSellerProductState>(
             builder: (context, state) {
               return state.maybeWhen(
-                loaded: (products) {
+                loaded: (product) {
                   return ProductList(
                       title: 'Best Seller',
                       onSeeAllTap: () {},
-                      items: products.length > 4 //get 2 items only
-                          ? products.sublist(0, 2)
-                          : products);
+                      items: product.length > 4 //get 2 items only
+                          ? product.sublist(0, 2)
+                          : product);
                 },
                 orElse: () => const SizedBox.shrink(),
                 loading: () => const Center(
@@ -179,13 +179,13 @@ class _HomePageState extends State<HomePage> {
           BlocBuilder<SpecialOfferProductBloc, SpecialOfferProductState>(
             builder: (context, state) {
               return state.maybeWhen(
-                loaded: (products) {
+                loaded: (product) {
                   return ProductList(
                       title: 'Special Offer',
                       onSeeAllTap: () {},
-                      items: products.length > 12 //get 2 items only
-                          ? products.sublist(0, 2)
-                          : products);
+                      items: product.length > 12 //get 2 items only
+                          ? product.sublist(0, 2)
+                          : product);
                 },
                 orElse: () => const SizedBox.shrink(),
                 loading: () => const Center(

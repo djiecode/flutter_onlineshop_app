@@ -19,9 +19,20 @@ class ProductRemoteDatasource {
     }
   }
 
+// get all feature
+  Future<Either<String, ProductResponseModel>> getFeature(featureId) async {
+    final response =
+        await http.get(Uri.parse('${Variables.baseUrl}/api/products?feature_id=$featureId'));
+
+    if (response.statusCode == 200) {
+      return Right(ProductResponseModel.fromJson(response.body));
+    } else {
+      return const Left('Internal Server Error');
+    }
+  }
 // get all product by categoryId
   Future<Either<String, ProductResponseModel>> getProductByCategory(
-      int categoryId) async {
+    int categoryId) async {
     final response = await http.get(
         Uri.parse('${Variables.baseUrl}/api/products?category_id=$categoryId'));
 
@@ -45,16 +56,16 @@ class ProductRemoteDatasource {
   // }
 
 // get product by Feature
-  Future<Either<String, ProductResponseModel>> getFeature(int featureId) async {
-    final response = await http.get(
-        Uri.parse('${Variables.baseUrl}/api/feature?feature_id=$featureId'));
+  // Future<Either<String, ProductResponseModel>> getFeature(int featureId) async {
+  //   final response = await http.get(
+  //       Uri.parse('${Variables.baseUrl}/api/feature?feature_id=$featureId'));
 
-    if (response.statusCode == 200) {
-      return Right(ProductResponseModel.fromJson(response.body));
-    } else {
-      return const Left('Internal Server Error');
-    }
-  }
+  //   if (response.statusCode == 200) {
+  //     return Right(ProductResponseModel.fromJson(response.body));
+  //   } else {
+  //     return const Left('Internal Server Error');
+  //   }
+  // }
 
   Future<Either<String, ProductResponseModel>> getProducts(
       {String? category, String? search}) async {

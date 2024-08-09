@@ -4,7 +4,7 @@ part of 'best_seller_product_bloc.dart';
 class BestSellerProductState with _$BestSellerProductState {
   const factory BestSellerProductState.initial() = _Initial;
   const factory BestSellerProductState.loading() = _Loading;
-  const factory BestSellerProductState.loaded(List<Product> products) = _Loaded;
+  const factory BestSellerProductState.loaded(List<Product> product) = _Loaded;
   const factory BestSellerProductState.error(String message) = _Error;
 
 }

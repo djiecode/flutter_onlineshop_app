@@ -1,6 +1,7 @@
 // import 'package:fic12_flutter_starter/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onlineshop_app/data/models/responses/product_response_model.dart';
+import 'package:flutter_onlineshop_app/persentation/account/pages/profile_page.dart';
 
 import 'package:flutter_onlineshop_app/persentation/home/pages/dashboard_page.dart';
 import 'package:flutter_onlineshop_app/persentation/home/pages/search_page.dart';
@@ -83,6 +84,11 @@ class AppRouter {
             );
           },
           routes: [
+            GoRoute(
+              name: RouteConstants.profilePage,
+              path: RouteConstants.profilePagePath,
+              builder: (context, state) => const ProfilePage(),
+            ),
             GoRoute(
               name: RouteConstants.ProductDetailsPage,
               path: RouteConstants.productDetailPath,

@@ -4,19 +4,20 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
         {
-            "name": "flutter_onlineshop_app",
+            "name": "Besnet Computer Store",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "flutter_onlineshop_app (profile mode)",
+            "name": "Besnet Computer Store (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "flutter_onlineshop_app (release mode)",
+            "name": "Besnet Computer Store (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
