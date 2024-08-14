@@ -13,6 +13,7 @@ import 'package:flutter_onlineshop_app/persentation/address/bloc/city/city_bloc.
 import 'package:flutter_onlineshop_app/persentation/address/bloc/province/province_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/address/bloc/subdistrict/subdistrict_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:flutter_onlineshop_app/persentation/auth/bloc/register/register_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/all_laptop/all_laptop_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/best_seller_product/best_seller_product_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/category/category_bloc.dart';
@@ -103,6 +104,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => AllLaptopBloc(ProductRemoteDatasource()),
         ),
+        BlocProvider(
+          create: (context) => RegisterBloc(AuthRemoteDatasource()),
+        ),
+
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
