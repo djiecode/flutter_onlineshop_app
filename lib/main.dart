@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_onlineshop_app/data/datasources/address_remote_datasource.dart';
+ 
 import 'package:flutter_onlineshop_app/data/datasources/auth_remote_datasource.dart';
 import 'package:flutter_onlineshop_app/data/datasources/category_remote_datasource.dart';
 import 'package:flutter_onlineshop_app/data/datasources/firebase_messanging_remote_datasource.dart';
@@ -12,7 +13,9 @@ import 'package:flutter_onlineshop_app/persentation/address/bloc/address/address
 import 'package:flutter_onlineshop_app/persentation/address/bloc/city/city_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/address/bloc/province/province_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/address/bloc/subdistrict/subdistrict_bloc.dart';
+import 'package:flutter_onlineshop_app/persentation/auth/bloc/login/login_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/auth/bloc/logout/logout_bloc.dart';
+ 
 import 'package:flutter_onlineshop_app/persentation/auth/bloc/register/register_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/all_laptop/all_laptop_bloc.dart';
 import 'package:flutter_onlineshop_app/persentation/home/bloc/best_seller_product/best_seller_product_bloc.dart';
@@ -31,7 +34,6 @@ import 'core/constants/colors.dart';
 import 'core/router/app_router.dart';
 import 'data/datasources/product_remote_datasource.dart';
 import 'firebase_options.dart';
-import 'persentation/auth/bloc/login/login_bloc.dart';
 import 'persentation/home/bloc/all_product/all_product_bloc.dart';
 
 void main() async {
@@ -107,7 +109,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => RegisterBloc(AuthRemoteDatasource()),
         ),
-
+        // BlocProvider(
+        //   create: (context) => ProfileBloc(AuthLocalDatasource()),
+        // ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

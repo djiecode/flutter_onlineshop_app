@@ -25,4 +25,6 @@ class AddressModel {
   String get fullAddress =>
       '$address. $city. $province. $country. Zip Code $zipCode';
   String get primaryAddressText => isPrimary ? 'Utama' : 'Opsi';
+
+  
 }
