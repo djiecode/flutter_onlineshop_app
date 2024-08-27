@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_onlineshop_app/core/components/buttons.dart';
+import 'package:flutter_onlineshop_app/core/constants/variables.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/adresses_response_model.dart';
+import 'package:flutter_onlineshop_app/persentation/home/models/product_quantity.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:flutter_onlineshop_app/core/core.dart';
@@ -13,28 +16,37 @@ import '../../home/bloc/checkout/checkout_bloc.dart';
 import '../widgets/cart_tile.dart';
 
 class OrderDetailPage extends StatefulWidget {
-  const OrderDetailPage({super.key});
+  final Address selectedAddress;
+  const OrderDetailPage({super.key, required this.selectedAddress});
 
   @override
   State<OrderDetailPage> createState() => _OrderDetailPageState();
 }
 
-// class OrderDetailPage extends StatefulWidget {
-//   const OrderDetailPage({super.key});
-
-//   @override
-//   State<OrderDetailPage> createState() => _OrderDetailPageState();
-// }
-
 class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
   void initState() {
-    context.read<CostBloc>().add(const CostEvent.getCost(
-          origin: '5779',
-          destination: '2103',
-          weight: 1000,
-          courier: 'sicepat',
+    final List<ProductQuantity> listProduct =
+        context.read<CheckoutBloc>().state.maybeWhen(
+            loaded: (products, _, __, ___, ____, ______) {
+              return products;
+            },
+            orElse: () => []);
+
+    context.read<CostBloc>().add(CostEvent.getCost(
+          // origin: '2102', // merchant location, hardcode to Tanah Abang
+          origin: Variables.usingPro ? '2102' : '152', // 152 jakarta pusat
+          destination: Variables.usingPro
+              ? (widget.selectedAddress.districtId ?? '22')
+              : '22', // 22 bandung
+          weight: listProduct.fold(
+              0,
+              (previousValue, element) =>
+                  previousValue +
+                  ((element.quantity ?? 0) * 1000)), // quantity * 1000
+          courier: 'jne',
         ));
+
     super.initState();
   }
 
@@ -43,19 +55,19 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Orders'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.goNamed(
-                RouteConstants.cart,
-                pathParameters: PathParameters(
-                  rootTab: RootTab.order,
-                ).toMap(),
-              );
-            },
-            icon: Assets.icons.cart.svg(height: 24.0),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       context.goNamed(
+        //         RouteConstants.cart,
+        //         pathParameters: PathParameters(
+        //           rootTab: RootTab.order,
+        //         ).toMap(),
+        //       );
+        //     },
+        //     icon: Assets.icons.cart.svg(height: 24.0),
+        //   ),
+        // ],
       ),
       body: ListView(
         padding: const EdgeInsets.all(20.0),
@@ -73,6 +85,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     itemCount: products.length,
                     itemBuilder: (context, index) => CartTile(
                       data: products[index],
+                      isEditable: false,
                     ),
                     separatorBuilder: (context, index) =>
                         const SpaceHeight(16.0),

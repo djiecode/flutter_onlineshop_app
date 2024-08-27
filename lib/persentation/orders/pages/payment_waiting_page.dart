@@ -233,8 +233,10 @@ class _PaymentWaitingPageState extends State<PaymentWaitingPage> {
                             return const SizedBox();
                           },
                           loaded: (orderResponseModel) {
+                            final vaNumber =
+                                orderResponseModel.order!.paymentVaNumber!;
                             return Text(
-                              orderResponseModel.order!.paymentVaNumber!,
+                              vaNumber,
                               style: const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -246,42 +248,95 @@ class _PaymentWaitingPageState extends State<PaymentWaitingPage> {
                     ),
                   ],
                 ),
-                Button.outlined(
-                  textColor: AppColors.primary,
-                  width: 125.0,
-                  onPressed: () {
-                    Clipboard.setData(const ClipboardData(text: 'test dong'))
-                        .then((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Copied to clipboard'),
-                        duration: Duration(seconds: 1),
-                        backgroundColor: AppColors.primary,
-                      ));
-                    });
+                BlocBuilder<OrderBloc, OrderState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return Button.outlined(
+                          textColor: AppColors.primary,
+                          width: 125.0,
+                          onPressed: () {
+                            Clipboard.setData(const ClipboardData(text: ''))
+                                .then((_) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Copied to clipboard'),
+                                duration: Duration(seconds: 1),
+                                backgroundColor: AppColors.primary,
+                              ));
+                            });
+                          },
+                          label: 'Copy',
+                          icon: Assets.icons.copy.svg(),
+                        );
+                      },
+                      loaded: (orderResponseModel) {
+                        final vaNumber =
+                            orderResponseModel.order!.paymentVaNumber!;
+                        return Button.outlined(
+                          textColor: AppColors.primary,
+                          width: 125.0,
+                          onPressed: () {
+                            Clipboard.setData(ClipboardData(text: vaNumber))
+                                .then((_) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Copied to clipboard'),
+                                duration: Duration(seconds: 1),
+                                backgroundColor: AppColors.primary,
+                              ));
+                            });
+                          },
+                          label: 'Copy',
+                          icon: Assets.icons.copy.svg(),
+                        );
+                      },
+                    );
                   },
-                  label: 'Copy',
-                  icon: Assets.icons.copy.svg(),
                 ),
               ],
             ),
             const SpaceHeight(14.0),
-            const ListTile(
+            ListTile(
               contentPadding: EdgeInsets.zero,
-              title: Text(
-                'Total Pembayaran',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400,
-                ),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Total Pembayaran',
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(
+                      height:
+                          4.0), // Adds space between the title and the total
+                  BlocBuilder<CheckoutBloc, CheckoutState>(
+                    builder: (context, state) {
+                      final total = state.maybeWhen(
+                        orElse: () => 0,
+                        loaded: (products, _, __, ___, shippingCost, ______) =>
+                            products.fold<int>(
+                              0,
+                              (previousValue, element) =>
+                                  previousValue +
+                                  (element.product.price! * element.quantity),
+                            ) +
+                            shippingCost,
+                      );
+                      return Text(
+                        total.currencyFormatRp,
+                        style: const TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
-              subtitle: Text(
-                'IDR 377.000',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
+            )
           ],
         ),
       ),
@@ -303,10 +358,12 @@ class _PaymentWaitingPageState extends State<PaymentWaitingPage> {
             const SpaceHeight(20.0),
             Button.outlined(
               onPressed: () {
-                context.pushNamed(
-                  RouteConstants.trackingOrder,
-                  pathParameters: PathParameters().toMap(),
-                );
+                            context.pushNamed(
+                RouteConstants.orderList,
+                pathParameters: PathParameters(
+                  rootTab: RootTab.account,
+                ).toMap(),
+              );
               },
               label: 'Cek Status Pembayaran',
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/adresses_response_model.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/components/buttons.dart';
@@ -18,33 +19,19 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
-  // final List<AddressModel> addresses = [
-  //   AddressModel(
-  //     country: 'Indonesia',
-  //     firstName: 'Saiful',
-  //     lastName: 'Bahri',
-  //     address: 'Jl. Merdeka No. 123',
-  //     city: 'Jakarta Selatan',
-  //     province: 'DKI Jakarta',
-  //     zipCode: 12345,
-  //     phoneNumber: '08123456789',
-  //     isPrimary: true,
-  //   ),
-  //   AddressModel(
-  //     country: 'Indonesia',
-  //     firstName: 'Saiful',
-  //     lastName: '',
-  //     address: 'Jl. Cendrawasih No. 456',
-  //     city: 'Bandung',
-  //     province: 'Jawa Barat',
-  //     zipCode: 67890,
-  //     phoneNumber: '08987654321',
-  //   ),
-  // ];
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
+  int? selectedIndex;
+  Address? selectedAddress;
 
   @override
   void initState() {
     super.initState();
+    context.read<AddressBloc>().add(const AddressEvent.getAddresses());
+  }
+
+  Future<void> _refreshAddresses() async {
     context.read<AddressBloc>().add(const AddressEvent.getAddresses());
   }
 
@@ -68,77 +55,84 @@ class _AddressPageState extends State<AddressPage> {
           ),
         ],
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(20.0),
-        children: [
-          const Text(
-            'Pilih atau tambahkan alamat pengiriman',
-            style: TextStyle(
-              fontSize: 16,
+      body: RefreshIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: _refreshAddresses,
+        child: ListView(
+          padding: const EdgeInsets.all(20.0),
+          children: [
+            const Text(
+              'Pilih atau tambahkan alamat pengiriman',
+              style: TextStyle(
+                fontSize: 16,
+              ),
             ),
-          ),
-          const SpaceHeight(20.0),
-          BlocBuilder<AddressBloc, AddressState>(
-            builder: (context, state) {
-              return state.maybeWhen(orElse: () {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }, loaded: (addresses) {
-                return BlocBuilder<CheckoutBloc, CheckoutState>(
-                  builder: (context, state) {
-                    final addressId = state.maybeWhen(
-                      orElse: () => 0,
-                      loaded: (checkout, addressId, __, ___, ____, _____) {
-                        return addressId;
-                      },
+            const SpaceHeight(20.0),
+            BlocBuilder<AddressBloc, AddressState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () {
+                    return const Center(
+                      child: CircularProgressIndicator(),
                     );
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: addresses.length,
-                      itemBuilder: (context, index) => AddressTile(
-                        isSelected: addressId == addresses[index].id,
-                        data: addresses[index],
-                        onTap: () {
-                          context.read<CheckoutBloc>().add(
-                                CheckoutEvent.addAddressId(
-                                  addresses[index].id!,
-                                ),
+                  },
+                  loaded: (addresses) {
+                    return BlocBuilder<CheckoutBloc, CheckoutState>(
+                      builder: (context, state) {
+                        return ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: addresses.length,
+                          itemBuilder: (context, index) => AddressTile(
+                            isSelected: selectedIndex != null
+                                ? selectedIndex == index
+                                : addresses[index].isDefault == 1,
+                            data: addresses[index],
+                            onTap: () {
+                              context.read<CheckoutBloc>().add(
+                                    CheckoutEvent.addAddressId(
+                                        addresses[index].id!),
+                                  );
+
+                              selectedIndex = index;
+                              selectedAddress = addresses[index];
+
+                              setState(() {});
+                            },
+                            onEditTap: () {
+                              context.goNamed(
+                                RouteConstants.editAddress,
+                                pathParameters: PathParameters(
+                                  rootTab: RootTab.order,
+                                ).toMap(),
+                                extra: addresses[index].toMapAddressModel(),
                               );
-                        },
-                        onEditTap: () {
-                          context.goNamed(
-                            RouteConstants.editAddress,
-                            pathParameters: PathParameters(
-                              rootTab: RootTab.order,
-                            ).toMap(),
-                            extra: addresses[index],
-                          );
-                        },
-                      ),
-                      separatorBuilder: (context, index) =>
-                          const SpaceHeight(16.0),
+                            },
+                          ),
+                          separatorBuilder: (context, index) =>
+                              const SpaceHeight(16.0),
+                        );
+                      },
                     );
                   },
                 );
-              });
-            },
-          ),
-          const SpaceHeight(40.0),
-          Button.outlined(
-            onPressed: () {
-              context.goNamed(
-                RouteConstants.addAddress,
-                pathParameters: PathParameters(
-                  rootTab: RootTab.order,
-                ).toMap(),
-              );
-            },
-            label: 'Add address',
-          ),
-          const SpaceHeight(50.0),
-        ],
+              },
+            ),
+            const SpaceHeight(40.0),
+            Button.outlined(
+              onPressed: () {
+                context.goNamed(
+                  RouteConstants.addAddress,
+                  pathParameters: PathParameters(
+                    rootTab: RootTab.order,
+                  ).toMap(),
+                );
+              },
+              label: 'Add address',
+            ),
+            const SpaceHeight(50.0),
+          ],
+        ),
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -154,38 +148,42 @@ class _AddressPageState extends State<AddressPage> {
                     fontSize: 16.0,
                   ),
                 ),
-                BlocBuilder<CheckoutBloc, CheckoutState>(
-                  builder: (context, state) {
-                    final subtotal = state.maybeWhen(
-                      orElse: () => 0,
-                      loaded: (checkout, _, __, ___, ____, _____) {
-                        return checkout.fold<int>(
-                          0,
-                          (previousValue, element) =>
-                              previousValue +
-                              (element.quantity * element.product.price!),
-                        );
-                      },
-                    );
-                    return Text(
-                      subtotal.currencyFormatRp,
-                      style: const TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    );
-                  },
+                Text(
+                  20000.currencyFormatRp,
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                  ),
                 ),
               ],
             ),
             const SpaceHeight(12.0),
             Button.filled(
               onPressed: () {
-                context.goNamed(
-                  RouteConstants.orderDetail,
-                  pathParameters: PathParameters(
-                    rootTab: RootTab.order,
-                  ).toMap(),
-                );
+                if (selectedAddress == null) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Error'),
+                      content: const Text('Please select an address first.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  context.goNamed(
+                    RouteConstants.orderDetail,
+                    pathParameters: PathParameters(
+                      rootTab: RootTab.order,
+                    ).toMap(),
+                    extra: selectedAddress,
+                  );
+                }
               },
               label: 'Lanjutkan',
             ),

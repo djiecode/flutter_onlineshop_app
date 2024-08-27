@@ -1,5 +1,6 @@
 // import 'package:fic12_flutter_starter/presentation/home/pages/dashboard_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_onlineshop_app/data/models/responses/adresses_response_model.dart';
 import 'package:flutter_onlineshop_app/data/models/responses/product_response_model.dart';
 import 'package:flutter_onlineshop_app/persentation/account/pages/profile_page.dart';
 
@@ -135,7 +136,8 @@ class AppRouter {
                   GoRoute(
                     name: RouteConstants.orderDetail,
                     path: RouteConstants.orderDetailPath,
-                    builder: (context, state) => const OrderDetailPage(),
+                    builder: (context, state)=> OrderDetailPage(
+                          selectedAddress: (state.extra as Address)),
                     routes: [
                       GoRoute(
                         name: RouteConstants.paymentDetail,

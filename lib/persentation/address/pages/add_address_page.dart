@@ -217,13 +217,6 @@ class _AddAddressPageState extends State<AddAddressPage> {
                               ),
                             ),
                           );
-                          
-                      context.goNamed(
-                        RouteConstants.address,
-                        pathParameters: PathParameters(
-                          rootTab: RootTab.order,
-                        ).toMap(),
-                      );
                     },
                     label: 'Tambah Alamat',
                   );

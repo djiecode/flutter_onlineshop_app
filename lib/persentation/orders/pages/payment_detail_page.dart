@@ -10,7 +10,6 @@ import '../../../core/components/spaces.dart';
 import '../../../core/core.dart';
 import '../../../core/router/app_router.dart';
 import '../models/bank_account_model.dart';
-import '../widgets/countdown_timer.dart';
 import '../widgets/payment_method.dart';
 
 class PaymentDetailPage extends StatelessWidget {
